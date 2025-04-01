@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column; /* Pour placer le footer en bas */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 90%;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button[type="submit"] {
+            background-color: #5cb85c;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .forgot-password a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        /* Style pour le lien "S'inscrire" */
+        .register-link {
+            text-decoration: underline;
+            color: gray;
+            margin-left: 10px;
+        }
+
+        .register-link:hover {
+            color: darkgray;
+        }
+
+        #resetPasswordSection {
+            display: none; /* Masqué par défaut */
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        #resetPasswordSection h3 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        #resetPasswordSection button[type="button"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #resetPasswordSection button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Connexion</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="motDePasse">Mot de passe:</label>
+                <input type="password" id="motDePasse" name="motDePasse" required>
+            </div>
+            <button type="submit">Se connecter</button>
+        </form>
+        <div class="forgot-password">
+            <a href="#" id="forgotPasswordLink">Mot de passe oublié?</a>
+            <!-- Lien "S'inscrire" -->
+            <a href="inscription.html" class="register-link">S'inscrire</a>
+        </div>
+
+        <div id="resetPasswordSection">
+            <h3>Réinitialisation du mot de passe</h3>
+            <div class="form-group">
+                <label for="resetEmail">Email:</label>
+                <input type="email" id="resetEmail" name="resetEmail" required>
+            </div>
+            <button type="button" id="resetPasswordButton">Réinitialiser le mot de passe</button>
+            <p id="resetPasswordMessage" class="message"></p>
+        </div>
+
+        <p id="loginMessage" class="message"></p>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+            const resetPasswordSection = document.getElementById('resetPasswordSection');
+            const resetPasswordButton = document.getElementById('resetPasswordButton');
+            const loginMessage = document.getElementById('loginMessage');
+            const resetPasswordMessage = document.getElementById('resetPasswordMessage');
+
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Ici, vous ajouteriez la logique pour envoyer les données de connexion au serveur
+                // et gérer la réponse (succès, erreur, etc.)
+                const email = document.getElementById('email').value;
+                const motDePasse = document.getElementById('motDePasse').value;
+
+                console.log('Tentative de connexion avec:', { email, motDePasse });
+                // Simulation de connexion réussie ou échouée
+                if (email === 'test@example.com' && motDePasse === 'password') {
+                    loginMessage.textContent = 'Connexion réussie (simulée).';
+                    loginMessage.className = 'message success';
+                    // Redirection vers une autre page après la connexion (par exemple)
+                    // window.location.href = '/tableau-de-bord.html';
+                } else {
+                    loginMessage.textContent = 'Identifiants incorrects.';
+                    loginMessage.className = 'message error';
+                }
+            });
+
+            forgotPasswordLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                resetPasswordSection.style.display = 'block';
+            });
+
+            resetPasswordButton.addEventListener('click', function() {
+                const resetEmail = document.getElementById('resetEmail').value;
+                // Ici, vous ajouteriez la logique pour envoyer une demande de réinitialisation de mot de passe 
+                // en utilisant l'email fourni.
+                console.log('Demande de réinitialisation pour l\'email:', resetEmail);
+                resetPasswordMessage.textContent = 'Un email de réinitialisation a été envoyé (simulé).';
+                resetPasswordMessage.className = 'message success';
+                document.getElementById('resetEmail').value = ''; // Efface le champ email
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Inscription</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 90%;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button.cancel {
+            background-color: #d9534f;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .gender-options,
+        .interests-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .gender-options label,
+        .interests-options label {
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Formulaire d'inscription</h2>
+        <form id="inscriptionForm">
+            <!-- Nom -->
+            <div class="form-group">
+                <label for="nom">Nom:</label>
+                <input type="text" id="nom" name="nom" required>
+            </div>
+
+            <!-- Prénom -->
+            <div class="form-group">
+                <label for="prenom">Prénom:</label>
+                <input type="text" id="prenom" name="prenom" required>
+            </div>
+
+            <!-- Date de naissance -->
+            <div class="form-group">
+                <label for="dateNaissance">Date de naissance:</label>
+                <input type="date" id="dateNaissance" name="dateNaissance" required>
+            </div>
+
+            <!-- Sexe -->
+            <div class="form-group">
+                <label>Sexe:</label>
+                <div class="gender-options">
+                    <label><input type="radio" name="sexe" value="M" required> M</label>
+                    <label><input type="radio" name="sexe" value="F"> F</label>
+                    <label><input type="radio" name="sexe" value="T"> T</label>
+                </div>
+            </div>
+
+            <!-- Pays -->
+            <div class="form-group">
+                <label for="pays">Pays:</label>
+                <select id="pays" name="pays" required>
+                    <option value="">Côte d'Ivoire</option>
+                    <option value="Suisse">Suisse</option>
+                    <option value="France">France</option>
+                    <option value="Canada">Canada</option>
+                    <option value="États-Unis">États-Unis</option>
+                    <option value="Allemagne">Allemagne</option>
+                    <option value="Italie">Italie</option>
+                    <option value="Espagne">Espagne</option>    
+                    <!-- Ajoutez tous les autres pays ici -->
+                </select>
+            </div>
+
+            <!-- Centres d'intérêt -->
+            <div class="form-group">
+                <label>Centres d'intérêt:</label>
+                <div class="interests-options">
+                    <label><input type="checkbox" name="interet" value="musique"> Musique</label>
+                    <label><input type="checkbox" name="interet" value="danse"> Danse</label>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <!-- Mot de passe -->
+            <div class="form-group">
+                <label for="motDePasse">Mot de passe:</label>
+                <input type="password" id="motDePasse" name="motDePasse" required>
+            </div>
+
+            <!-- Confirmer mot de passe -->
+            <div class="form-group">
+                <label for="confirmerMotDePasse">Confirmer le mot de passe:</label>
+                <input type="password" id="confirmerMotDePasse" name="confirmerMotDePasse" required>
+            </div>
+
+            <!-- Pourquoi voulez-vous nous rejoindre ? -->
+            <div class="form-group">
+                <label for="raison">Pourquoi voulez-vous nous rejoindre ?</label>
+                <textarea id="raison" name="raison" rows="4" placeholder="Décrivez votre motivation..." required></textarea>
+            </div>
+
+            <!-- Boutons S'inscrire et Annuler -->
+            <div style="display: flex; justify-content: space-between;">
+                <button type="submit">S'inscrire</button>
+                <button type="button" class="cancel" onclick="resetForm()">Annuler</button>
+            </div>
+        </form>
+
+        <p id="inscriptionMessage" class="message"></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inscriptionForm = document.getElementById('inscriptionForm');
+            const inscriptionMessage = document.getElementById('inscriptionMessage');
+
+            // Gestion de la soumission du formulaire
+            inscriptionForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                // Récupération des valeurs du formulaire
+                const nom = document.getElementById('nom').value;
+                const prenom = document.getElementById('prenom').value;
+                const dateNaissance = document.getElementById('dateNaissance').value;
+                const sexe = document.querySelector('input[name="sexe"]:checked')?.value || '';
+                const pays = document.getElementById('pays').value;
+                const interets = Array.from(document.querySelectorAll('input[name="interet"]:checked'))
+                    .map(checkbox => checkbox.value);
+                const email = document.getElementById('email').value;
+                const motDePasse = document.getElementById('motDePasse').value;
+                const confirmerMotDePasse = document.getElementById('confirmerMotDePasse').value;
+                const raison = document.getElementById('raison').value;
+
+                // Vérification des mots de passe
+                if (motDePasse !== confirmerMotDePasse) {
+                    inscriptionMessage.textContent = 'Les mots de passe ne correspondent pas.';
+                    inscriptionMessage.className = 'message error';
+                    return;
+                }
+
+                // Affichage des données dans la console
+                console.log('Données d\'inscription:', {
+                    nom,
+                    prenom,
+                    dateNaissance,
+                    sexe,
+                    pays,
+                    interets,
+                    email,
+                    motDePasse,
+                    raison
+                });
+
+                // Message de succès simulé
+                inscriptionMessage.textContent = 'Inscription réussie (simulée).';
+                inscriptionMessage.className = 'message success';
+                inscriptionForm.reset();
+            });
+        });
+
+        // Fonction pour réinitialiser le formulaire
+        function resetForm() {
+            document.getElementById('inscriptionForm').reset();
+            document.getElementById('inscriptionMessage').textContent = '';
+        }
+    </script>
+</body>
+</html>
